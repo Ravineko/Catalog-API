@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog Name="Creating Digital Images">
+	<Subcatalogs Name="Resources">
+		<Subcatalogs Name="Primary sources">
+
+		</Subcatalogs>
+		<Subcatalogs Name="Secondary sources">
+
+		</Subcatalogs>
+	</Subcatalogs>
+	<Subcatalogs Name="Evidence">
+
+	</Subcatalogs>
+	<Subcatalogs Name="Graphic Products">
+		<Subcatalogs Name="Process">
+
+		</Subcatalogs>
+		<Subcatalogs Name="Final product">
+
+		</Subcatalogs>
+	</Subcatalogs>
+</Catalog>
