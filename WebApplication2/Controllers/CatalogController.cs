@@ -27,7 +27,7 @@ namespace WebApplication2.Controllers
 
             if (currentCatalog == null)
             {
-                // Обробка випадку, коли каталог не знайдено
+  
                 return NotFound();
             }
 
@@ -42,11 +42,11 @@ namespace WebApplication2.Controllers
 
             if (newCurrentCatalog == null)
             {
-                // Обробка випадку, коли каталог не знайдено
+  
                 return NotFound();
             }
 
-            // Поверніть частковий вигляд з новим поточним каталогом
+
             return PartialView("_CatalogItem", newCurrentCatalog);
         }
     }

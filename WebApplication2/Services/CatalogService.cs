@@ -60,7 +60,7 @@ namespace WebApplication2.Services
             }
             else
             {
-                // Обробка випадку, коли файл не існує
+  
                 return null;
             }
         }

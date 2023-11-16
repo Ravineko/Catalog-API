@@ -12,8 +12,6 @@ namespace WebApplication2.Models {
         [XmlElement("Subcatalogs")]
         public List<Catalog> SubCatalogs { get; set; }
 
-        //[XmlElement("Catalogs")]
-        //public List<Catalog> ?ChildCatalogs { get; set; }
     }
 
 }
