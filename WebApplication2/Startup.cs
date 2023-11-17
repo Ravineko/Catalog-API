@@ -1,12 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebApplication2.Models;
-using WebApplication2.Helpers;
 using WebApplication2.Services;
-using Microsoft.EntityFrameworkCore;
+
 
 namespace WebApplication2
 {
@@ -21,14 +21,12 @@ namespace WebApplication2
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<CatalogDbContext>(options =>
+                options.UseInMemoryDatabase("InMemoryCatalog")); // Використовуйте InMemoryDatabase
+
+            services.AddScoped<ICatalogService, CatalogService>();
+
             services.AddMvc();
-
-            services.AddSingleton(provider => new CatalogService(provider.GetRequiredService<IConfiguration>()));
-
-
-            // Додаємо службу для роботи з каталогами
-            services.AddTransient<ICatalogService, CatalogService>();
-
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

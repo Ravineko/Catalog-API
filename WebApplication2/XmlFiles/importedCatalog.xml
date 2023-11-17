@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Catalog Name="Creating Digital Images">
+<ArrayOfCatalog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<Catalog Name="Digital Images">
 	<Subcatalogs Name="Resources">
 		<Subcatalogs Name="Primary sources">
 
@@ -20,3 +21,4 @@
 		</Subcatalogs>
 	</Subcatalogs>
 </Catalog>
+</ArrayOfCatalog>

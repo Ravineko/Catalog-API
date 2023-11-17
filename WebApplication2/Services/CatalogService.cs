@@ -1,68 +1,32 @@
-﻿using Microsoft.Extensions.Configuration;
-using System.IO;
-using System.Xml.Serialization;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
 using WebApplication2.Models;
 
 namespace WebApplication2.Services
 {
     public class CatalogService : ICatalogService
     {
-        private readonly string _xmlFilePath;
+        private readonly CatalogDbContext _dbContext;
 
-        public CatalogService(IConfiguration configuration)
+        public CatalogService(CatalogDbContext dbContext)
         {
-            _xmlFilePath = configuration["XmlFilePath"];
-        }
-        public Catalog GetCatalogByName(string catalogName)
-        {
-            string xmlContent = File.ReadAllText(_xmlFilePath);
-
-            XmlSerializer serializer = new XmlSerializer(typeof(Catalog));
-
-            using (StringReader reader = new StringReader(xmlContent))
-            {
-                Catalog rootCatalog = (Catalog)serializer.Deserialize(reader);
-                return FindCatalogByName(rootCatalog, catalogName);
-            }
+            _dbContext = dbContext;
+            _dbContext.Database.EnsureCreated();
         }
 
-        private Catalog FindCatalogByName(Catalog currentCatalog, string targetName)
-        {
-            if (currentCatalog.Name.Equals(targetName, StringComparison.OrdinalIgnoreCase))
-            {
-                return currentCatalog;
-            }
-
-            foreach (var subCatalog in currentCatalog.SubCatalogs)
-            {
-                Catalog foundCatalog = FindCatalogByName(subCatalog, targetName);
-                if (foundCatalog != null)
-                {
-                    return foundCatalog;
-                }
-            }
-
-            return null;
-        }
         public Catalog GetCatalog()
         {
-            if (File.Exists(_xmlFilePath))
-            {
-                string xmlContent = File.ReadAllText(_xmlFilePath);
+            return _dbContext.Catalogs.Include(c => c.SubCatalogs).FirstOrDefault();
+        }
 
-                XmlSerializer serializer = new XmlSerializer(typeof(Catalog));
+        public Catalog GetCatalogs(string catalogName)
+        {
+            var catalog = _dbContext.Catalogs
+                .Include(c => c.SubCatalogs)
+                .FirstOrDefault(c => c.Name.Equals(catalogName, StringComparison.OrdinalIgnoreCase));
 
-                using (StringReader reader = new StringReader(xmlContent))
-                {
-                    Catalog catalog = (Catalog)serializer.Deserialize(reader);
-                    return catalog;
-                }
-            }
-            else
-            {
-  
-                return null;
-            }
+            return catalog;
         }
     }
 }

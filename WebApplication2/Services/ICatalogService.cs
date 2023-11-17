@@ -5,6 +5,6 @@ namespace WebApplication2.Services
     public interface ICatalogService
     {
         Catalog GetCatalog();
-        Catalog GetCatalogByName(string name);
+        Catalog GetCatalogs(string catalogName);
     }
 }

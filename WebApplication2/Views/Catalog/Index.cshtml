@@ -1,29 +1,55 @@
-﻿@model Catalog
+﻿@using System.Text.Json;
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Message"]
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+@model Catalog
 @if (Model != null)
 {
-    <h2>Поточна папка: @Model.Name</h2>
+<h2>Поточний каталог: @Model.Name</h2>
 
-     @if (Model.SubCatalogs != null && Model.SubCatalogs.Any())
-    {
-        <ul>
-            @foreach (var subCatalog in Model.SubCatalogs)
-            {
-                <li>
-                    <!-- Використовуємо форму для відправки POST-запиту на сервер, стилізовану як гіперпосилання -->
-                    <form asp-action="ChangeCurrentCatalog" asp-controller="Catalog" method="post" style="display: inline;">
-                        <input type="hidden" name="CatalogName" value="@subCatalog.Name" />
-                        <a href="javascript:void(0);" onclick="this.parentNode.submit();" style="color: blue; text-decoration: underline; cursor: pointer;">@subCatalog.Name</a>
-                    </form>
-                </li>
-            }
-        </ul>
-    }
-    else
-    {
-        <p>Каталогів немає</p>
-    }
+@if (Model.SubCatalogs != null && Model.SubCatalogs.Any())
+{
+    <ul>
+        @foreach (var subCatalog in Model.SubCatalogs)
+        {
+            <li>
+                <!-- Використовуємо форму для відправки POST-запиту на сервер, стилізовану як гіперпосилання -->
+                <form asp-action="ChangeCurrentCatalog" asp-controller="Catalog" method="post" style="display: inline;">
+                    <input type="hidden" name="CatalogName" value="@subCatalog.Name" />
+                    <a href="javascript:void(0);" onclick="this.parentNode.submit();" style="color: blue; text-decoration: underline; cursor: pointer;">@subCatalog.Name</a>
+                </form>
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>Поточний каталог не має підкаталогів.</p>
+}
 }
 else
 {
     <p>Модель є нульовою.</p>
 }
+
+<form asp-action="ExportToXml" asp-controller="Catalog" method="post">
+    <button type="submit">Експорт в XML</button>
+</form>
+
+@*<form asp-action="ClearDatabase" asp-controller="Catalog" method="post">
+    <button type="submit">Очистити бд</button>
+</form>*@
+<form asp-action="ImportFromXml" asp-controller="Catalog" method="post">
+    <button type="submit">Імпорт з XML</button>
+</form>
