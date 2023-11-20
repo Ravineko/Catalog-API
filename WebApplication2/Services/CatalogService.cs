@@ -20,11 +20,11 @@ namespace WebApplication2.Services
             return _dbContext.Catalogs.Include(c => c.SubCatalogs).FirstOrDefault();
         }
 
-        public Catalog GetCatalogs(string catalogName)
+        public Catalog GetCatalogs(int catalogId)
         {
             var catalog = _dbContext.Catalogs
                 .Include(c => c.SubCatalogs)
-                .FirstOrDefault(c => c.Name.Equals(catalogName, StringComparison.OrdinalIgnoreCase));
+                .FirstOrDefault(c => c.CatalogId == catalogId);
 
             return catalog;
         }

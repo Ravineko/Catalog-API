@@ -133,10 +133,10 @@ namespace WebApplication2.Controllers
 
         [HttpGet]
         [Route("Catalog/{catalogName}")]
-        public IActionResult _CatalogItem(string catalogName)
+        public IActionResult _CatalogItem(int catalogId)
         {
 
-            Catalog catalogs = _catalogService.GetCatalogs(catalogName);
+            Catalog catalogs = _catalogService.GetCatalogs(catalogId);
 
             if (catalogs == null)
             {
@@ -149,16 +149,14 @@ namespace WebApplication2.Controllers
 
         [HttpPost]
         [Route("Catalog/ChangeCurrentCatalog")]
-        public IActionResult ChangeCurrentCatalog(string catalogName)
+        public IActionResult ChangeCurrentCatalog(int catalogId)
         {
-            Catalog catalogs = _catalogService.GetCatalogs(catalogName);
+            Catalog catalogs = _catalogService.GetCatalogs(catalogId);
 
             if (catalogs == null)
             {
-  
                 return NotFound();
             }
-
 
             return PartialView("_CatalogItem", catalogs);
         }

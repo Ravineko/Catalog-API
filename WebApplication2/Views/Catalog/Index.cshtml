@@ -1,6 +1,4 @@
-﻿@using System.Text.Json;
-
-@if (TempData["Message"] != null)
+﻿@if (TempData["Message"] != null)
 {
     <div class="alert alert-success">
         @TempData["Message"]
@@ -26,9 +24,10 @@
             <li>
                 <!-- Використовуємо форму для відправки POST-запиту на сервер, стилізовану як гіперпосилання -->
                 <form asp-action="ChangeCurrentCatalog" asp-controller="Catalog" method="post" style="display: inline;">
-                    <input type="hidden" name="CatalogName" value="@subCatalog.Name" />
+                    <input type="hidden" name="CatalogId" value="@subCatalog.CatalogId" />
                     <a href="javascript:void(0);" onclick="this.parentNode.submit();" style="color: blue; text-decoration: underline; cursor: pointer;">@subCatalog.Name</a>
                 </form>
+
             </li>
         }
     </ul>
@@ -47,9 +46,9 @@ else
     <button type="submit">Експорт в XML</button>
 </form>
 
-@*<form asp-action="ClearDatabase" asp-controller="Catalog" method="post">
+<form asp-action="ClearDatabase" asp-controller="Catalog" method="post">
     <button type="submit">Очистити бд</button>
-</form>*@
+</form>
 <form asp-action="ImportFromXml" asp-controller="Catalog" method="post">
     <button type="submit">Імпорт з XML</button>
 </form>
