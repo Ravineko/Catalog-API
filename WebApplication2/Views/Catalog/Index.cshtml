@@ -1,4 +1,7 @@
-﻿@if (TempData["Message"] != null)
+﻿@{
+    Layout = "_Layout";
+}
+@if (TempData["Message"] != null)
 {
     <div class="alert alert-success">
         @TempData["Message"]
@@ -18,10 +21,10 @@
 
 @if (Model.SubCatalogs != null && Model.SubCatalogs.Any())
 {
-    <ul>
+    <ul class="list-group">
         @foreach (var subCatalog in Model.SubCatalogs)
         {
-            <li>
+            <li class="list-group-item">
                 <!-- Використовуємо форму для відправки POST-запиту на сервер, стилізовану як гіперпосилання -->
                 <form asp-action="ChangeCurrentCatalog" asp-controller="Catalog" method="post" style="display: inline;">
                     <input type="hidden" name="CatalogId" value="@subCatalog.CatalogId" />
@@ -42,13 +45,25 @@ else
     <p>Модель є нульовою.</p>
 }
 
-<form asp-action="ExportToXml" asp-controller="Catalog" method="post">
-    <button type="submit">Експорт в XML</button>
-</form>
+       
 
-<form asp-action="ClearDatabase" asp-controller="Catalog" method="post">
-    <button type="submit">Очистити бд</button>
-</form>
-<form asp-action="ImportFromXml" asp-controller="Catalog" method="post">
-    <button type="submit">Імпорт з XML</button>
-</form>
+        
+        
+
+
+
+
+<div class="btn-group my-2" role="group" aria-label="Basic mixed styles example">
+        <form asp-action="ExportToXml" asp-controller="Catalog" method="post">
+            <button class="btn btn-primary" type="submit">Експорт в XML</button>
+        </form>
+
+
+        <form asp-action="ClearDatabase" asp-controller="Catalog" method="post">
+            <button class="btn btn-danger mx-2" type="submit">Очистити бд</button>
+        </form>
+
+       <form asp-action="ImportFromXml" asp-controller="Catalog" method="post">
+            <button class="btn btn-primary" type="submit">Імпорт з XML</button>
+        </form>
+</div>

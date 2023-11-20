@@ -1,4 +1,6 @@
-﻿
+﻿@{
+    Layout = "_Layout";
+}
 @model Catalog
 
 @if (Model != null)
@@ -7,19 +9,19 @@
 
     @if (Model.SubCatalogs != null && Model.SubCatalogs.Any())
     {
-        <ul>
-            @foreach (var subCatalog in Model.SubCatalogs)
-            {
-                <li>
-            <!-- Використовуємо форму для відправки POST-запиту на сервер, стилізовану як гіперпосилання -->
-                    <form asp-action="ChangeCurrentCatalog" asp-controller="Catalog" method="post" style="display: inline;">
+    <ul class="list-group">
+        @foreach (var subCatalog in Model.SubCatalogs)
+        {
+            <li class="list-group-item">
+                <!-- Використовуємо форму для відправки POST-запиту на сервер, стилізовану як гіперпосилання -->
+                <form asp-action="ChangeCurrentCatalog" asp-controller="Catalog" method="post" style="display: inline;">
                     <input type="hidden" name="CatalogId" value="@subCatalog.CatalogId" />
                     <a href="javascript:void(0);" onclick="this.parentNode.submit();" style="color: blue; text-decoration: underline; cursor: pointer;">@subCatalog.Name</a>
-                    </form>
+                </form>
 
-                </li>
-            }
-        </ul>
+            </li>
+        }
+    </ul>
     }
     else
     {
@@ -31,4 +33,4 @@ else
     <p>Модель є нульовою.</p>
 }
 
-<a href="~/">Повернутися на головну сторінку</a>
+<a href="~/" class="btn btn-outline-secondary my-2">Повернутися на головну сторінку</a>
